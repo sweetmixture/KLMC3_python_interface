@@ -1,0 +1,40 @@
+ ------ readline
+ ------ readline
+2
+end of python interface
+ ------ readline
+4
+end of python interface
+ ------ readline
+2
+end of python interface
+ ------ readline
+6
+end of python interface
+ ------ readline
+2
+end of python interface
+ ------ readline
+ ------ readline
+2
+end of python interface
+-------------- call by wrapper
+ * calling processor <1> -  0
+ -- in python wrapper -- Sum of two integers: 0
+ * calling processor <2> -  0
+ -- in python wrapper -- Sum of two integers: 0
+-------------- call by wrapper
+ * calling processor <1> -  1
+ -- in python wrapper -- Sum of two integers: 2
+ * calling processor <2> -  1
+ -- in python wrapper -- Sum of two integers: 2
+-------------- call by wrapper
+ * calling processor <1> -  3
+ -- in python wrapper -- Sum of two integers: 6
+ * calling processor <2> -  3
+ -- in python wrapper -- Sum of two integers: 6
+-------------- call by wrapper
+ * calling processor <1> -  2
+ -- in python wrapper -- Sum of two integers: 4
+ * calling processor <2> -  2
+ -- in python wrapper -- Sum of two integers: 4

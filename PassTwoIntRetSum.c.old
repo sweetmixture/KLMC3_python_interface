@@ -1,0 +1,116 @@
+#include <Python.h>
+
+int call_python(
+const char* module_path,		// module location: absolute path
+const char* module,
+const char* method,
+const int arg1,
+const int arg2 ){
+
+	//Py_Initialize();
+
+	/* module importing */
+	PyObject* sysPath = PySys_GetObject("path");								// get path to sys.path: including python source path : this is a python 'list'
+	PyList_Insert(sysPath, 0, PyUnicode_DecodeFSDefault(module_path));			// add module path to the sysPath
+	
+	/* module load */
+	PyObject* pModule = PyImport_ImportModule(module);
+	if( pModule == NULL ){
+		printf("Module Found Err\n");
+		PyErr_Print();
+		Py_Finalize();
+		return 1;
+	}
+	
+	/* from module, load method */
+	PyObject* pMethod = PyObject_GetAttrString(pModule,method);					// Get Attr from pModule with its name (const char*)method
+	if(!PyCallable_Check(pMethod)){												// check *pMethod if callable
+		printf("Method/Function Found Err\n");
+		PyErr_Print();
+		Py_Finalize();
+		return 1;
+	}
+
+	/* setting input args */
+	PyObject* pArgs = PyTuple_Pack(2, PyLong_FromLong(arg1), PyLong_FromLong(arg2));	// PyLongObject PyLong_FromLong(long v) : PyLongObject -> This subtype of PyObject represents a Python integer object.
+
+	/* call pMethod */
+	PyObject* pRes = PyObject_CallObject(pMethod,pArgs);
+
+	if( pRes != NULL ){
+		long res = PyLong_AsLong(pRes);
+		printf(" -- in python wrapper -- Sum of two integers: %ld\n",res);
+	}
+	else {
+    	PyErr_Print();
+	}
+
+	/* MEM RELEASE ? */
+	Py_XDECREF(sysPath);
+	Py_XDECREF(pModule);
+	Py_XDECREF(pMethod);
+	Py_XDECREF(pArgs);
+	Py_XDECREF(pRes);
+
+	//Py_Finalize();
+	return 0;
+}
+
+
+int main() {
+/*
+    // Initialize the Python interpreter
+    Py_Initialize();
+
+    // Import the Python module
+	PyObject *sysPath = PySys_GetObject("path");
+	PyList_Insert(sysPath, 0, PyUnicode_DecodeFSDefault("/work/e05/e05/wkjee/Software/gulpklmc/CPython"));
+	PyObject *pModule = PyImport_ImportModule("my_python_module");
+
+    if (pModule == NULL) {
+        printf("Module Found Err\n");
+        PyErr_Print();
+        Py_Finalize();
+        return 1; // Exit with an error code
+    }
+
+    // Get a reference to the Python function
+    PyObject *pFunc = PyObject_GetAttrString(pModule, "add_two_integers");
+    if (!PyCallable_Check(pFunc)) {
+        printf("Function Found Err\n");
+        PyErr_Print();
+        Py_Finalize();
+        return 1; // Exit with an error code
+    }
+
+    // Prepare the arguments as Python objects
+    PyObject *pArgs = PyTuple_Pack(2, PyLong_FromLong(10), PyLong_FromLong(20));
+
+    // Call the Python function with the arguments
+    PyObject *pResult = PyObject_CallObject(pFunc, pArgs);
+
+    // Check if the function call was successful
+    if (pResult != NULL) {
+        // Convert the Python result to a C long
+        long sum_result = PyLong_AsLong(pResult);
+        printf("Sum of two integers: %ld\n", sum_result);
+
+        // Release the Python object references
+        Py_DECREF(pArgs);
+        Py_DECREF(pResult);
+    } else {
+        PyErr_Print();
+    }
+
+    // Finalize the Python interpreter
+    Py_Finalize();
+*/
+	printf("-------------- call by wrapper\n");
+
+	Py_Initialize();
+	call_python("/work/e05/e05/wkjee/Software/gulpklmc/CPython","my_python_module","add_two_integers",12,8);
+	call_python("/work/e05/e05/wkjee/Software/gulpklmc/CPython","my_python_module","add_two_integers",12,8);
+
+	Py_Finalize();
+    return 0; // Exit successfully
+}

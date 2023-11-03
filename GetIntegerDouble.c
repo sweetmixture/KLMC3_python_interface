@@ -4,7 +4,15 @@ int main() {
     // Initialize the Python interpreter
     Py_Initialize();
 
+
     // Import the Python module
+	// PySys_SetPath("/work/e05/e05/wkjee/Software/gulpklmc/CPython");
+    // PyObject *pModule = PyImport_ImportModule("my_python_module");
+    // PyObject *pModule = PyImport_ImportModule("/work/e05/e05/wkjee/Software/gulpklmc/CPython/my_python_module");
+
+	// const char *modulePath = "/work/e05/e05/wkjee/Software/gulpklmc/CPython/my_python_module.py";
+	PyObject *sysPath = PySys_GetObject("path");
+	PyList_Insert(sysPath, 0, PyUnicode_DecodeFSDefault("/work/e05/e05/wkjee/Software/gulpklmc/CPython"));
     PyObject *pModule = PyImport_ImportModule("my_python_module");
     if (pModule == NULL) {
         printf("Module Found Err\n");
@@ -12,6 +20,7 @@ int main() {
         Py_Finalize();
         return 1; // Exit with an error code
     }
+	printf(" ------ module loaded\n");
 
     // Get a reference to the Python function
     PyObject *pFunc = PyObject_GetAttrString(pModule, "return_integer_and_double");
