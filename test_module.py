@@ -337,7 +337,10 @@ def random_gen():
         #random.make_sp_control(f'./{work_dir}/{label}', random.ID)
         break
     step_cnt += 1
-random_gen() 
+
+
+if __name__ == '__main__':
+	random_gen() 
 #if __name__ == '__main__':
 #    random = RANDOM_CLUSTER_GEN()
 #    random.random_gen()
