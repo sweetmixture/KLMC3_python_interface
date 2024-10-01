@@ -1,0 +1,40 @@
+ | shell loading py env - done
+ldd check
+	linux-vdso.so.1 (0x00001506c1fd5000)
+	libpython3.11.so.1.0 => /work/e05/e05/wkjee/miniconda3/lib/libpython3.11.so.1.0 (0x00001506c17e5000)
+	libdl.so.2 => /lib64/libdl.so.2 (0x00001506c15e1000)
+	libmpi_gnu_91.so.12 => /opt/cray/pe/lib64/libmpi_gnu_91.so.12 (0x00001506bea5c000)
+	libxpmem.so.0 => /opt/cray/xpmem/default/lib64/libxpmem.so.0 (0x00001506c1fb6000)
+	libc.so.6 => /lib64/libc.so.6 (0x00001506be667000)
+	libpthread.so.0 => /lib64/libpthread.so.0 (0x00001506be444000)
+	libutil.so.1 => /lib64/libutil.so.1 (0x00001506be240000)
+	libm.so.6 => /lib64/libm.so.6 (0x00001506bdef5000)
+	/lib64/ld-linux-x86-64.so.2 (0x00001506c1dad000)
+	libfabric.so.1 => /opt/cray/libfabric/1.12.1.2.2.0.0/lib64/libfabric.so.1 (0x00001506bdc45000)
+	libatomic.so.1 => /opt/cray/pe/gcc-libs/libatomic.so.1 (0x00001506bda3d000)
+	librt.so.1 => /lib64/librt.so.1 (0x00001506bd834000)
+	libpmi.so.0 => /opt/cray/pe/lib64/libpmi.so.0 (0x00001506bd632000)
+	libpmi2.so.0 => /opt/cray/pe/lib64/libpmi2.so.0 (0x00001506bd3f9000)
+	libgfortran.so.5 => /opt/cray/pe/gcc-libs/libgfortran.so.5 (0x00001506bcf4d000)
+	libgcc_s.so.1 => /opt/cray/pe/gcc-libs/libgcc_s.so.1 (0x00001506bcd34000)
+	libquadmath.so.0 => /opt/cray/pe/gcc-libs/libquadmath.so.0 (0x00001506bcaed000)
+	librdmacm.so.1 => /usr/lib64/librdmacm.so.1 (0x00001506bc8cd000)
+	libibverbs.so.1 => /usr/lib64/libibverbs.so.1 (0x00001506bc6ad000)
+	libpals.so.0 => /opt/cray/pe/lib64/libpals.so.0 (0x00001506bc4a8000)
+	libnl-3.so.200 => /usr/lib64/libnl-3.so.200 (0x00001506bc286000)
+	libnl-route-3.so.200 => /usr/lib64/libnl-route-3.so.200 (0x00001506bc010000)
+ldd check end ---------
+ ------ readline
+0
+end of python interface
+ ------ readline
+2
+end of python interface
+rank 0
+-------------- call by wrapper, rank : 
+ * calling processor <1> -  0
+ -- in python wrapper -- Sum of two integers: 0
+rank 1
+-------------- call by wrapper, rank : 
+ * calling processor <2> -  1
+ -- in python wrapper -- Sum of two integers: 2

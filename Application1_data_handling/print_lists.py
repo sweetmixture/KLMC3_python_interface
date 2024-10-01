@@ -22,3 +22,17 @@ def modify_and_return_2d_array(double_2d_list):
 	# Return the modified 2D array
 	return modified_list
 
+
+# no return but change the list and check the result on the C side
+def modify_reference_2d_array(double_2d_list):
+	
+
+
+# return deepcpy_list
+def modify_and_return_2d_array_deepcopy(double_2d_list):
+	# using deepcopy
+
+	deepcpy_list = copy.deepcopy(double_2d_list):
+	deepcpy_list = [[element + 5 for element in row] for row in deepcpy_list]
+
+	return deepcpy_list

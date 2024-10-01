@@ -1,4 +1,17 @@
+/*
+	01.10.2024 WKJEE
+*/
+
 #include <Python.h>
+
+/*
+	Key CPython functions
+
+
+
+
+
+*/
 
 int main() {
     // Initialize the Python interpreter

@@ -14,7 +14,9 @@ void pass_data_to_python() {
 
 	// ---- Create Python List for String Array ----
 	PyObject* py_str_list = PyList_New(3);	// Create a new Python list with 3 elements
+
 	for (int i = 0; i < 3; i++) {
+
 		// Create a Python string object from each C string
 		PyObject* py_str = PyUnicode_FromString(str_array[i]);
 		if (py_str == NULL) {
@@ -22,7 +24,7 @@ void pass_data_to_python() {
 			return;  // Handle error if PyUnicode_FromString fails
 		}
 		// Set the Python string object in the list
-		PyList_SetItem(py_str_list, i, py_str);  // This transfers ownership, no need to Py_DECREF py_str
+		PyList_SetItem(py_str_list, i, py_str);  // This transfers ownership, no need to Py_DECREF py_str // 'py_str' reference expire here
 	}
 
 	// ---- Create Python List for 2D Double Array (10x3) ----
@@ -67,11 +69,12 @@ void pass_data_to_python() {
 	//}
 
 
-	PyObject *sysPath = PySys_GetObject("path"); // get python module search path list
+	PyObject *sysPath = PySys_GetObject("path"); // get python module search path list // Borrowed reference
 	PyList_Insert(sysPath, 0, PyUnicode_DecodeFSDefault("/work/e05/e05/wkjee/Software/gulpklmc/CPython/Application1_data_handling"));
 
 	// ---- Import Python Module and Call Python Function ----
-	PyObject* pModule = PyImport_ImportModule("print_lists");
+	PyObject* pModule = PyImport_ImportModule("print_lists"); // New reference
+
 	if (pModule != NULL) {
 		PyObject* pFunc = PyObject_GetAttrString(pModule, "print_lists");
 		if (pFunc && PyCallable_Check(pFunc)) {

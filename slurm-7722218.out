@@ -1,0 +1,29 @@
+ | shell loading py env - done
+ldd check
+	linux-vdso.so.1 (0x00007ffea0ddc000)
+	libpython3.11.so.1.0 => not found
+	libdl.so.2 => /lib64/libdl.so.2 (0x00001523700c6000)
+	libmpi_gnu_91.so.12 => /opt/cray/pe/lib64/libmpi_gnu_91.so.12 (0x000015236d541000)
+	libxpmem.so.0 => /opt/cray/xpmem/default/lib64/libxpmem.so.0 (0x00001523704d9000)
+	libc.so.6 => /lib64/libc.so.6 (0x000015236d14c000)
+	/lib64/ld-linux-x86-64.so.2 (0x00001523702ca000)
+	libfabric.so.1 => /opt/cray/libfabric/1.12.1.2.2.0.0/lib64/libfabric.so.1 (0x000015236ce9c000)
+	libatomic.so.1 => /opt/cray/pe/gcc-libs/libatomic.so.1 (0x000015236cc94000)
+	libpthread.so.0 => /lib64/libpthread.so.0 (0x000015236ca71000)
+	librt.so.1 => /lib64/librt.so.1 (0x000015236c868000)
+	libpmi.so.0 => /opt/cray/pe/lib64/libpmi.so.0 (0x000015236c666000)
+	libpmi2.so.0 => /opt/cray/pe/lib64/libpmi2.so.0 (0x000015236c42d000)
+	libgfortran.so.5 => /opt/cray/pe/gcc-libs/libgfortran.so.5 (0x000015236bf81000)
+	libm.so.6 => /lib64/libm.so.6 (0x000015236bc36000)
+	libgcc_s.so.1 => /opt/cray/pe/gcc-libs/libgcc_s.so.1 (0x000015236ba1d000)
+	libquadmath.so.0 => /opt/cray/pe/gcc-libs/libquadmath.so.0 (0x000015236b7d6000)
+	librdmacm.so.1 => /usr/lib64/librdmacm.so.1 (0x000015236b5b6000)
+	libibverbs.so.1 => /usr/lib64/libibverbs.so.1 (0x000015236b396000)
+	libpals.so.0 => /opt/cray/pe/lib64/libpals.so.0 (0x000015236b191000)
+	libnl-3.so.200 => /usr/lib64/libnl-3.so.200 (0x000015236af6f000)
+	libnl-route-3.so.200 => /usr/lib64/libnl-route-3.so.200 (0x000015236acf9000)
+ldd check end ---------
+/work/e05/e05/wkjee/Software/gulpklmc/CPython/PassTwoIntRetSum.x: error while loading shared libraries: libpython3.11.so.1.0: cannot open shared object file: No such file or directory
+/work/e05/e05/wkjee/Software/gulpklmc/CPython/PassTwoIntRetSum.x: error while loading shared libraries: libpython3.11.so.1.0: cannot open shared object file: No such file or directory
+srun: error: nid005460: tasks 0-1: Exited with exit code 127
+srun: launch/slurm: _step_signal: Terminating StepId=7722218.0

@@ -1,0 +1,5 @@
+ | shell loading py env - done
+/work/e05/e05/wkjee/Software/gulpklmc/CPython/PassTwoIntRetSum.x: error while loading shared libraries: libpython3.11.so.1.0: cannot open shared object file: No such file or directory
+/work/e05/e05/wkjee/Software/gulpklmc/CPython/PassTwoIntRetSum.x: error while loading shared libraries: libpython3.11.so.1.0: cannot open shared object file: No such file or directory
+srun: error: nid005460: tasks 0-1: Exited with exit code 127
+srun: launch/slurm: _step_signal: Terminating StepId=7722217.0

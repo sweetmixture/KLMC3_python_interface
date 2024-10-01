@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 void pass_data_to_python() {
+
 	// Example 10x3 double array in C
 	double double_2d_array[10][3] = {
 		{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}, {7.0, 8.0, 9.0},
@@ -11,28 +12,33 @@ void pass_data_to_python() {
 	};
 
 	// ---- Create Python List for 2D Double Array (10x3) ----
-	PyObject* py_2d_list = PyList_New(10);	// Create a list with 10 elements (each will be a sublist)
+	PyObject* py_2d_list = PyList_New(10);	// Create a list with 10 elements (each will be a sublist); New reference
+
 	for (int i = 0; i < 10; i++) {
 		PyObject* py_row_list = PyList_New(3);	// Each row has 3 elements
 		for (int j = 0; j < 3; j++) {
-			PyObject* py_double = PyFloat_FromDouble(double_2d_array[i][j]);
+			PyObject* py_double = PyFloat_FromDouble(double_2d_array[i][j]); // New reference
 			if (py_double == NULL) {
 				PyErr_Print();
 				return;  // Handle error if PyFloat_FromDouble fails
 			}
-			PyList_SetItem(py_row_list, j, py_double);
+			PyList_SetItem(py_row_list, j, py_double); // py_double reference moved to py_row_list, expired afterwards
 		}
-		PyList_SetItem(py_2d_list, i, py_row_list);
+		PyList_SetItem(py_2d_list, i, py_row_list); // py_row_list reference moved to py_2d_list, expire afterwards
 	}
 
-	PyObject *sysPath = PySys_GetObject("path"); // get python module search path list
+	PyObject *sysPath = PySys_GetObject("path"); // get python module search path list // Borrowed reference 'sysPath'
 	PyList_Insert(sysPath, 0, PyUnicode_DecodeFSDefault("/work/e05/e05/wkjee/Software/gulpklmc/CPython/Application1_data_handling"));
 
 	// ---- Import Python Module and Call Python Function ----
-	PyObject* pModule = PyImport_ImportModule("print_lists");  // Import modify_and_return_2d_array function
+	PyObject* pModule = PyImport_ImportModule("print_lists");  // Import module 'print_lists.py'; New reference
+
 	if (pModule != NULL) {
-		PyObject* pFunc = PyObject_GetAttrString(pModule, "modify_and_return_2d_array");
-		if (pFunc && PyCallable_Check(pFunc)) {
+
+		PyObject* pFunc = PyObject_GetAttrString(pModule, "modify_and_return_2d_array"); // get function in the module; New reference
+
+		if (pFunc && PyCallable_Check(pFunc)) { // callable check
+
 			// Call the Python function and pass the 2D list
 			PyObject* pArgs = PyTuple_Pack(1, py_2d_list);	// Prepare arguments
 			PyObject* pValue = PyObject_CallObject(pFunc, pArgs);  // Call the Python function
@@ -41,12 +47,12 @@ void pass_data_to_python() {
 			if (pValue != NULL) {
 				// ---- Extract the modified 2D array back in C ----
 				for (int i = 0; i < 10; i++) {
-					PyObject* py_row = PyList_GetItem(pValue, i);  // Get each row
+					PyObject* py_row = PyList_GetItem(pValue, i);  // Get each row; Borrowed reference 'py_row' -> no need to Py_DECREF
 					if (PyList_Check(py_row)) {
 						for (int j = 0; j < 3; j++) {
 							PyObject* py_double = PyList_GetItem(py_row, j);  // Get each element
-							double value = PyFloat_AsDouble(py_double);  // Convert Python float to C double
-							if (PyErr_Occurred()) {
+							double value = PyFloat_AsDouble(py_double);  // Convert Python float to C double // return C double
+							if (PyErr_Occurred()) { // PyErr_Occurred() is followed to check if 'PyFloat_AsDouble' failed
 								PyErr_Print();
 								return;
 							}

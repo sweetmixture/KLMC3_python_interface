@@ -1,0 +1,2 @@
+ | shell loading py env - done
+srun: error: Unable to create step for job 7722133: More processors requested than permitted
