@@ -18,7 +18,8 @@ int main() {
     }
 
     // Get a reference to the Python class (MyClass)
-    PyObject *pClass = PyObject_GetAttrString(pModule, "MyClass"); // get class from module 'my_python_module.py'; New reference
+    PyObject *pClass = PyObject_GetAttrString(pModule, "MyClass"); // get class from module 'my_python_module.py'; New reference //
+	// note. 'PyObject_GetAttrString' is used -> anyway a class defined in a module is regarded as an 'Attribute'
     if (!PyCallable_Check(pClass)) {
         PyErr_Print();
         Py_Finalize();
